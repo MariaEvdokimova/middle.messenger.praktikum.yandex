@@ -1,0 +1,42 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Проект от ЯндексПрактикум",
+  "scripts": {
+    "start": "parcel src/index.html --port 3000 --no-source-maps",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html --port 3000",
+    "watch": "parcel watch",
+    "prebuild": "engine-version",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/MariaEvdokimova/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.2",
+    "@parcel/transformer-sass": "^2.8.2",
+    "engine-version": "^1.0.2",
+    "express": "^4.18.2",
+    "parcel": "^2.8.2",
+    "parcel-transformer-hbs": "^1.0.4"
+  },
+  "targets": {
+    "default": {
+      "sourceMap": false
+    }
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
