@@ -1,56 +1,45 @@
 import tpl from './index.hbs';
-
-console.log(tpl);
-
-document.getElementById('root').innerHTML = tpl({
-    fname: 'students'
-});
-
-
-/*import Handlebars from "handlebars";
-import tpl from 'bundle-text:./index.hbs';
-import './sass/index.scss';
-//import button from './components/button';
-//import page1 from './pages/page1';
-//import page2 from './pages/page2';
-
-console.log(tpl);
-
-const comp = Handlebars.compile(tpl);
-const res = comp({
-	fname: 'students'
-//	btn: button('btn1','Click this', )
-});
-
-document.getElementById('root').innerHTML = res;
-
-*/
-
-/*import tpl from './index.hbs';
-
-
-document.getElementById('root').innerHTML = tpl({
-    fname: 'students'
-});
-*/
-/*import './styles/style.css';
+import './css/style.scss';
 import button from './components/button';
 import authorization from './pages/authorization';
-//import page2 from './pages/page2';
+import registration from './pages/registration';
+import error from './pages/error';
+import chats from './pages/chats';
+import profile from './pages/profile';
 
-console.log(tpl);
+const indexPage = ( page ) => {
+	const res = document.getElementById( 'root' ).innerHTML = tpl({
+		page: page
+	});
+	return res;
+};
 
-document.getElementById('root').innerHTML = tpl({
-	fname: 'students',
-	btn: button('btn1','Sign in')
-});
-
-
-window.createButton = (id, value) => {
-
-	const htmlTpl = document.createElement('template');
-	htmlTpl.innerHTML = button(id,value);
-
-	document.getElementById('root').appendChild(htmlTpl.content);
+switch( window.location.pathname ) {
+	case '/':  
+		indexPage( authorization({ button: button( 'btn1','Sign in' )}) );
+		break;  
+	case  '/registration':
+		indexPage( registration({ button: button( 'btn1','Sign up' )}) );
+		break; 
+	case  '/chats': 
+		indexPage( chats() );
+		break; 
+	case  '/profile': 
+		indexPage( profile().tpl );
+		break;  
+	case  '/profileEditData': 
+		indexPage( profile({ button: button( 'btn1','Сохранить' )} ).tplEditData );
+		break; 
+	case  '/profileEditPassword': 
+		indexPage( profile({ button: button( 'btn1','Сохранить' )} ).tplEditPassword );
+		break; 
+	default:
+		indexPage( error( '404', 'Не туда попали' ) );	
+		break; 
+  }
+  
+window.createButton = ( id, value ) => {
+	const htmlTpl = document.createElement( 'template' );
+	htmlTpl.innerHTML = button( id,value );
+	document.getElementById( 'root' ).appendChild( htmlTpl.content );
 }
-*/

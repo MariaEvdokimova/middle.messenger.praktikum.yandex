@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Проект от ЯндексПрактикум",
   "scripts": {
-    "start": "parcel src/index.html --port 3000 --no-source-maps",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html --port 3000",
-    "watch": "parcel watch",
+    "copy-static": "cp -vR ./static ./dist",
+    "dev": "npm run copy-static && parcel src/index.html --port 3000 --no-cache",
     "prebuild": "engine-version",
-    "build": "parcel build"
+    "build": "parcel build src/index.html",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
