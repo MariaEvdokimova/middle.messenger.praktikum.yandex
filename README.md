@@ -1,6 +1,6 @@
 # Messenger
 
-/github/actions/workflow/status/:user/:repo/:workflow+?branch=sprint_1
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MariaEvdokimova/middle.messenger.praktikum.yandex/tests.yml)
 
 установка зависимостей:
 
