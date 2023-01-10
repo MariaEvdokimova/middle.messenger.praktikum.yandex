@@ -37,7 +37,7 @@ switch( window.location.pathname ) {
 		indexPage( error( '404', 'Не туда попали' ) );	
 		break; 
   }
-  
+
 window.createButton = ( id, value ) => {
 	const htmlTpl = document.createElement( 'template' );
 	htmlTpl.innerHTML = button( id,value );
