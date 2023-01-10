@@ -1,6 +1,6 @@
 # Messenger
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MariaEvdokimova/middle.messenger.praktikum.yandex/tests.yml)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MariaEvdokimova/middle.messenger.praktikum.yandex/tests.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/8e3cfa15-c747-4b26-a08e-e7621becdc07/deploy-status)](https://app.netlify.com/sites/rococo-pony-ffd524/deploys)
 
 установка зависимостей:
 
