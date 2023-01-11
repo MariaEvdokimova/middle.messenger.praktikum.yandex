@@ -1,6 +1,6 @@
 # Messenger
 
-[![Tests](https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex/actions/workflows/test-sprints.yml/badge.svg)](https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex/actions/workflows/test-sprints.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/8e3cfa15-c747-4b26-a08e-e7621becdc07/deploy-status)](https://app.netlify.com/sites/rococo-pony-ffd524/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8e3cfa15-c747-4b26-a08e-e7621becdc07/deploy-status)](https://app.netlify.com/sites/rococo-pony-ffd524/deploys)
 
 установка зависимостей:
 
