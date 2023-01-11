@@ -1,11 +1,11 @@
 import tpl from './index.hbs';
 import './css/style.scss';
-import button from './components/button';
-import authorization from './pages/authorization';
-import registration from './pages/registration';
-import error from './pages/error';
-import chats from './pages/chats';
-import profile from './pages/profile';
+import { button } from './components/button';
+import { authorization } from './pages/authorization';
+import { registration } from './pages/registration';
+import { error } from './pages/error';
+import { chats } from './pages/chats';
+import { profile } from './pages/profile';
 
 const indexPage = ( page ) => {
 	const res = document.getElementById( 'root' ).innerHTML = tpl({

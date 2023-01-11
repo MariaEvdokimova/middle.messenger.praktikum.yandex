@@ -4,6 +4,6 @@ import './style.scss';
 
 Handlebars.registerPartial( 'registration', tpl );
 
-export default ( props = {} ) => {
+export const registration = ( props = {} ) => {
 	return tpl( props );
 }
