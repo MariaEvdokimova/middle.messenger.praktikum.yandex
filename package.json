@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Проект от ЯндексПрактикум",
   "scripts": {
-    "copy-static": "cp -vR ./static ./dist",
-    "dev": "npm run copy-static && parcel src/index.html --port 3000 --no-cache",
-    "build": "npm run copy-static && parcel build src/index.html",
+    "dev": "parcel src/index.html --port 3000 --no-cache",
+    "build": "parcel build src/index.html",
     "start": "node server.js"
   },
   "repository": {
