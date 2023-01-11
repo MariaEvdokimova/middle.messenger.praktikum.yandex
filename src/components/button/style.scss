@@ -1,11 +1,13 @@
+@import "../../css/variables.scss";
+
 .button {
     padding-top: 12px;
     padding-bottom: 12px;
-    background: #3369F3;
+    background: $link-color;
     border: none;
     border-radius: 8px;
     text-align: center;
-    color: #FFFFFF;
+    color: $white-color;
     font-size: 13px;
     line-height: 13px;
 }

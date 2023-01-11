@@ -17,3 +17,7 @@
 запуск проекта на сервере:
 
 ### `npm run start` 
+
+[сайт на Netlify ](https://rococo-pony-ffd524.netlify.app/)
+ 
+[шаблон Figma ](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1&t=r3MYV1qHfwynltXN-0)

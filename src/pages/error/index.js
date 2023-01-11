@@ -4,6 +4,6 @@ import './style.scss';
 
 Handlebars.registerPartial( 'err', tpl );
 
-export default ( err_code, err_message ) => {
+export const error = ( err_code, err_message ) => {
 	return tpl({ err_code, err_message });
 }

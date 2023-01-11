@@ -4,6 +4,6 @@ import './style.scss';
 
 Handlebars.registerPartial( 'authorization', tpl );
 
-export default ( props = {} ) => {
+export const authorization = ( props = {} ) => {
 	return tpl( props );
 }
