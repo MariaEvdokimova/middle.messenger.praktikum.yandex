@@ -1,0 +1,41 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Проект от ЯндексПрактикум",
+  "scripts": {
+    "dev": "parcel src/index.html --port 3000 --no-cache",
+    "build": "parcel build src/index.html",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/MariaEvdokimova/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/MariaEvdokimova/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "2.8.2",
+    "@parcel/transformer-sass": "2.8.2",
+    "parcel": "2.8.2",
+    "parcel-transformer-hbs": "1.0.4"
+  },
+  "targets": {
+    "default": {
+      "sourceMap": false,
+      "engines": {
+        "browsers": ">=50%"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "handlebars": "4.7.7"
+  }
+}

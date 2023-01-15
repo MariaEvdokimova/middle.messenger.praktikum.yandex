@@ -1,0 +1,55 @@
+<div class="profile__nerrow">
+    <a href="/chats"><img src="{{ nerrow }}" alt="Nerrow" width="28" height="28"></a>
+</div>
+<div class="profile">
+    <a class="profile__avatar-link" href="modal.hbs">
+        <img class="profile__avatar" src="{{ noAvatar }}" alt="Avatar" width="130" height="130">
+        <span class="profile__avatar-text">Поменять<br>аватар</span>
+    </a>
+    <h1 class="profile__title">Иван</h1>
+    <div class="profile__info info">
+        <div class="profile__mail info__item">
+            <p class="info__item-name">Почта</p>
+            <p class="info__item-value">pochta@yandex.ru</p>
+        </div>
+        <div class="profile__login info__item">
+            <p class="info__item-name">Логин</p>
+            <p class="info__item-value">Иванов</p>
+        </div>
+        <div class="profile__name info__item">
+            <p class="info__item-name">Имя</p>
+            <p class="info__item-value">Иван</p>
+        </div>
+        <div class="profile__surname info__item">
+            <p class="info__item-name">Фамилия</p>
+            <p class="info__item-value">Иванов</p>
+        </div>
+        <div class="profile__chat-name info__item">
+            <p class="info__item-name">Имя в чате</p>
+            <p class="info__item-value">Иван</p>
+        </div>
+        <div class="profile__tel info__item">
+            <p class="info__item-name">Телефон</p>
+            <p class="info__item-value">+7 (909) 123 45 67</p>
+        </div>
+    </div>
+    <div class="profile__links links">
+        <a class="links__item" href="/profileEditData">Изменить данные</a>
+        <a class="links__item" href="/profileEditPassword">Изменить пароль</a>
+        <a class="links__item--red" href="/">Выйти</a>
+    </div>
+</div>
+<div class="modal">
+    <div class="modal__container">
+        <p class="modal__title">Загрузите файл</p>
+        <form class="modal__form" enctype="multipart/form-data" method="post">
+            <input name="file" type="file" id="avatar" class="modal__file" multiple>
+            <label for="avatar" class="modal__file-text">
+                Выбрать файл на<br>компьютере
+            </label>
+            <div class="modal__button">
+                {{{button}}}
+            </div>
+        </form> 
+    </div>
+</div>
