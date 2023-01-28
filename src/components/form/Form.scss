@@ -1,0 +1,9 @@
+@import "../../css/variables.scss";
+
+.form__validation-error {
+  margin-top: 15px;
+  color: $error-color;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 8px;
+}

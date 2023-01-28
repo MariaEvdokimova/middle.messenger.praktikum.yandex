@@ -1,0 +1,50 @@
+@import "../../../css/variables.scss";
+
+.chat-footer {
+  grid-area: footer;
+  display: flex;
+  margin: 0 20px 10px;
+  background-color: $white-color;
+  border-top: 1px solid $border-color;
+}
+
+.footer__dropdown-img {
+  padding-top: 16px;
+  margin-right: 10px;
+}
+
+.form-footer {
+  display: flex;
+  flex-grow: 1;
+}
+
+.form-footer__input {
+  flex-grow: 1;
+}
+
+.form-footer__search {
+  width: calc(100% - 10px);
+  padding: 10px 20px;
+  background: $field-color;
+  border-color: transparent;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.form-footer__button {
+  position: relative;
+  transform: rotate(180deg);
+  width: 34px;
+  height: 34px;
+  background: white !important;
+
+  img {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 34px;
+    height: 34px;
+  }
+}
