@@ -4,7 +4,7 @@ import {authorization} from './pages/authorization/AuthorizationContainer';
 import {registration} from './pages/registration/RegistrationContainer';
 import {chats} from './pages/chats/ChatsContainer';
 import {profile} from './pages/profile/ProfileContainer';
-import {profileEditPassword} from './pages/profile/ProfileEditPasswordContainer';
+import {profileEditPassword} from './pages/profile/ProfileEditPasContainer';
 import {error} from './pages/error/ErrorContainer';
 
 enum CLASSES {
