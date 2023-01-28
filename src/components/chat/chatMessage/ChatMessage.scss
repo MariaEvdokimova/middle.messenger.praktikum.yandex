@@ -1,0 +1,29 @@
+@import "../../../css/variables.scss";
+
+.message {
+  align-self: flex-start;
+  max-width: 400px;
+  margin: 10px 0;
+  background: $message-color;
+  border-radius: 0 20px 20px;
+}
+
+.message-owner {
+  align-self: flex-end;
+  background: $active-color;
+  border-radius: 20px 20px 0;
+}
+
+.message__text {
+  margin: 0;
+  padding: 10px;
+}
+
+.message__time {
+  float: right;
+  margin: 10px 0 10px 10px;
+}
+
+.message__time-blue {
+  color: $link-color;
+}

@@ -1,0 +1,61 @@
+@import "../../css/variables.scss";
+
+.modal {
+  visibility: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  background: rgb(0 0 0 / 40%);
+}
+
+.modal__container {
+  position: fixed;
+  opacity: 1;
+  width: 340px;
+  height: 257px;
+  top: 50%;
+  left: 50%;
+  margin-left: -170px;
+  margin-top: -160px;
+  background: #fff;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 12px;
+}
+
+.modal__title {
+  margin: 40px 0;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.modal__form {
+  text-align: center;
+}
+
+.modal__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.modal__file-text {
+  display: block;
+  margin-bottom: 45px;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: $link-color;
+}
+
+.modal__button {
+  display: flex;
+  margin: 0 30px;
+
+  & :first-child {
+    width: 100%;
+  }
+}

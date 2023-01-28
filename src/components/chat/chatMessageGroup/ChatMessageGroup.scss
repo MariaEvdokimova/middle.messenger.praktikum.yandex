@@ -1,0 +1,17 @@
+@import "../../../css/variables.scss";
+
+.message__container {
+  grid-area: main;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.message__date {
+  width: 100%;
+  text-align: center;
+  margin: 38px 0;
+  color: $text-color-light;
+  line-height: 12px;
+}
