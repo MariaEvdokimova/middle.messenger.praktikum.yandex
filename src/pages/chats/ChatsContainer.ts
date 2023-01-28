@@ -1,5 +1,5 @@
 import {ChatBox} from '../../components/chat/chatBox/ChatBox';
-import {ChatFooter} from '../../components/chat/chatFooter/chatFooter';
+import {ChatFooter} from '../../components/chat/chatFooter/ChatFooter';
 import {Chats} from './Chats';
 import {Link} from '../../components/link/Link';
 import {ChatItem} from '../../components/chat/chatItem/ChatItem';

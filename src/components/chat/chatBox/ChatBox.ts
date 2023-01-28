@@ -3,7 +3,7 @@ import * as styles from './ChatBox.scss';
 import {Block} from '../../../services/Block';
 import {ChatHeader} from '../chatHeader/chatHeader';
 import {ChatMessageGroup} from '../chatMessageGroup/ChatMessagesGroup';
-import {ChatFooter} from '../chatFooter/chatFooter';
+import {ChatFooter} from '../chatFooter/ChatFooter';
 
 
 interface ChatBoxProps {
