@@ -16,7 +16,7 @@ const inputsDataProfileEditPass = [
   {
     name: 'password_conf',
     lable: 'Повторите новый пароль',
-  },
+  }
 ];
 
 export const profileEditPassword = () => {
