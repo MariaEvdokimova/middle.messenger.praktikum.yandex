@@ -30,7 +30,7 @@ export const profileEditPassword = () => {
       classLable: 'info__item-name profile__form-label',
       lable: value.lable,
       attr: {
-        class: 'profile__form-item',
+        class: 'profile__form-item'
       },
     });
     inputsProfileEditPassword.push(inputItem);
