@@ -244,7 +244,7 @@ export const chats = () => {
     footerLink: footerLink,
     footerDropdownList,
     attr: {
-      class: 'chat-footer',
+      class: 'chat-footer'
     },
   });
 
