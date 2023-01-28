@@ -10,7 +10,7 @@ import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
 import {slisedText} from '../../utils/SlicedText';
 import {DropdownList} from '../../components/dropdownList/DropdownList';
-import {ChatHeader} from "../../components/chat/chatHeader/СhatHeader";
+import {ChatHeader} from "../../components/chat/chatHeader/ChatHeader";
 import {usersList} from '../../data/messages.json';
 import hamburger from '../../../static/img/hamburger.svg';
 import clip from '../../../static/img/clip.svg';
