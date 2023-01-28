@@ -22,6 +22,7 @@ export class ProfileEditPassword extends Block<any> {
       formProfileEditPassword: this.props.formProfileEditPassword,
       attr: this.props.attr,
       nerrow,
-      noAvatar});
+      noAvatar
+    });
   }
 }
