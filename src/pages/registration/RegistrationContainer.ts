@@ -1,4 +1,4 @@
-import {CLASSES} from '../..';
+import {Classes} from '../..';
 import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
@@ -97,7 +97,7 @@ export const registration = () => {
     formRegistration,
     linkRegistration,
     attr: {
-      class: CLASSES.CLASS_WRAPPER,
+      class: Classes.ClassWrapper,
     },
   });
 

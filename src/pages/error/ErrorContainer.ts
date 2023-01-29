@@ -1,4 +1,4 @@
-import {CLASSES} from '../..';
+import {Classes} from '../..';
 import {Error} from './Error';
 
 export const error = () => {
@@ -6,7 +6,7 @@ export const error = () => {
     errCode: 404,
     errMessage: 'Не туда попали',
     attr: {
-      class: CLASSES.CLASS_WRAPPER,
+      class: Classes.ClassWrapper,
     },
   });
 

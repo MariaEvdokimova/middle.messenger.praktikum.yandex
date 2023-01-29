@@ -180,6 +180,7 @@ export const chats = () => {
   });
 
   const buttonSearch = new Button({
+    classImg: 'form-footer__img',
     attr: {
       class: 'form-footer__button',
       type: 'submit',

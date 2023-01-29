@@ -7,7 +7,7 @@ import {Popup} from '../../components/popup/Popup';
 import {Profile} from './Profile';
 import noAvatar from '../../../static/img/no-pic.svg';
 import {owner} from '../../data/owner.json';
-import {CLASSES} from '../..';
+import {Classes} from '../..';
 
 interface Ivalue {
     name: 'email' |'login' | 'first_name' | 'second_name' | 'display_name' | 'phone',
@@ -213,7 +213,7 @@ export const profile = () => {
     popupEditAvatar,
     profileTitle: owner.login,
     attr: {
-      class: CLASSES.CLASS_WRAPPER,
+      class: Classes.ClassWrapper,
     },
   });
 

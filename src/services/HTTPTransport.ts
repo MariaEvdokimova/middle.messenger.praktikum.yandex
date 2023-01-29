@@ -1,18 +1,15 @@
-enum METHODS {
-    GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE',
+enum Methods {
+    Get = 'GET',
+    Post = 'POST',
+    Put = 'PUT',
+    Delete = 'DELETE',
 }
 
-// Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
-// Необязательный метод
 function queryStringify<T>(data: Record<string, T>): string {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
 
-  // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
@@ -29,27 +26,27 @@ type THTTPMethod = (
  ) => Promise<unknown>;
 
  type TOptions = {
-    method?: METHODS;
-    data?: any;// Record<string, string | number> | Document | XMLHttpRequestBodyInit;
+    method?: Methods;
+    data?: any;
     headers?: Record<string, string>;
     timeout?: number;
   };
 
 class HTTPTransport {
   get: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+    return this.request(url, {...options, method: Methods.Get}, options.timeout);
   };
 
   post: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+    return this.request(url, {...options, method: Methods.Post}, options.timeout);
   };
 
   put: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+    return this.request(url, {...options, method: Methods.Put}, options.timeout);
   };
 
   delete: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+    return this.request(url, {...options, method: Methods.Delete}, options.timeout);
   };
 
   request = (url: string, options: TOptions = {}, timeout = 5000) => {
@@ -62,7 +59,7 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
+      const isGet = method === Methods.Get;
 
       xhr.open(
           method,
