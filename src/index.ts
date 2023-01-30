@@ -7,10 +7,6 @@ import {profile} from './pages/profile/ProfileContainer';
 import {profileEditPassword} from './pages/profile/ProfileEditPasswordContainer';
 import {error} from './pages/error/ErrorContainer';
 
-enum Classes {
-  ClassWrapper = 'wrapper'
-}
-
 window.addEventListener('DOMContentLoaded', () => {
   switch ( window.location.pathname ) {
     case '/':
@@ -38,5 +34,3 @@ window.addEventListener('DOMContentLoaded', () => {
       break;
   }
 });
-
-export {Classes};

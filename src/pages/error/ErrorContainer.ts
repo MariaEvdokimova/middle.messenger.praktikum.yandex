@@ -1,4 +1,4 @@
-import {Classes} from '../..';
+import { Classes } from '../../css/classes';
 import {Error} from './Error';
 
 export const error = () => {
