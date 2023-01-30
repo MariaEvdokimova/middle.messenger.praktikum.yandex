@@ -1,7 +1,7 @@
-import {Classes} from '../..';
 import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
+import { Classes } from '../../css/classes';
 import {ProfileEditPassword} from './ProfileEditPassword';
 
 const inputsDataProfileEditPass = [
