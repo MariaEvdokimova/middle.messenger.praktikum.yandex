@@ -1,0 +1,24 @@
+@import "../../css/variables.scss";
+
+.dropdown__list {
+  position: absolute;
+  width: 200px;
+  background: $white-color;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 12px;
+}
+
+.dropdown__item {
+  display: flex;
+  line-height: 51px;
+  white-space: nowrap;
+}
+
+.dropdown__img {
+  width: 25px;
+  height: 25px;
+}
+
+.dropdown__link-img {
+  margin: 15px;
+}

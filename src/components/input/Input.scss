@@ -1,0 +1,16 @@
+@import "../../css/variables.scss";
+
+.input__validation-error {
+  width: 100%;
+  padding: 5px 0;
+  color: $error-color;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 8px;
+}
+
+.input__input--validation-error {
+  display: block;
+  position: relative;
+  border-bottom-color: $error-color;
+}
