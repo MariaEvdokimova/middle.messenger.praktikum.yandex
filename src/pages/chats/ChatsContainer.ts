@@ -8,7 +8,6 @@ import {Form, FormComponent} from '../../components/form/Form';
 import {DropdownList} from '../../components/dropdownList/DropdownList';
 import { ChatHeaderComponent} from '../../components/chat/chatHeader/ChatHeader';
 import hamburger from '../../../static/img/hamburger.svg';
-import clip from '../../../static/img/clip.svg';
 import deleteChat from '../../../static/img/delete-chat.svg';
 import add from '../../../static/img/add.svg';
 import deleteImg from '../../../static/img/delete.svg';
