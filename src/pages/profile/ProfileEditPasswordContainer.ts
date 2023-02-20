@@ -40,13 +40,6 @@ const inputNewPassword = new Input({
   attr: {
     class: 'profile__form-item',
   },
-<<<<<<< HEAD
-  {
-    name: 'password_conf',
-    lable: 'Повторите новый пароль',
-  }
-];
-=======
 });
 
 const inputPasswordConf = new Input({
@@ -60,7 +53,6 @@ const inputPasswordConf = new Input({
   },
 });
 inputs.push(inputOldPassword,inputNewPassword,inputPasswordConf);
->>>>>>> 25bb91e524ae038313b1a9c4f441dadd5a4399d8
 
 const profileSavePassButton = new Button({
   value: 'Save',
@@ -70,21 +62,6 @@ const profileSavePassButton = new Button({
   },
 });
 
-<<<<<<< HEAD
-  inputsDataProfileEditPass.forEach(( value: Record<string, string> ) => {
-    const inputItem = new Input({
-      name: value.name,
-      type: 'password',
-      classInput: 'info__item-value profile__form-input',
-      classLable: 'info__item-name profile__form-label',
-      lable: value.lable,
-      attr: {
-        class: 'profile__form-item'
-      },
-    });
-    inputsProfileEditPassword.push(inputItem);
-  });
-=======
 const formProfileEditPassword = new Form({
   inputs: inputs,
   formButton: profileSavePassButton,
@@ -97,7 +74,6 @@ const formProfileEditPassword = new Form({
       event.preventDefault();
       const isValid = formProfileEditPassword.validation(formProfileEditPassword);
       const isPasswordEqual = formProfileEditPassword.isPasswordEqual(formProfileEditPassword, inputNewPassword, inputPasswordConf);
->>>>>>> 25bb91e524ae038313b1a9c4f441dadd5a4399d8
 
       if ( isValid && isPasswordEqual ) {
         const data = formProfileEditPassword.getObjLog(formProfileEditPassword);

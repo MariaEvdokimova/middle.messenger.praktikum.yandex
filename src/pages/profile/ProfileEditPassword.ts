@@ -23,13 +23,7 @@ export class ProfileEditPassword extends Block<any> {
     return this.compile(tpl, {
       formProfileEditPassword: this.props.formProfileEditPassword,
       attr: this.props.attr,
-<<<<<<< HEAD
-      nerrow,
-      noAvatar
-    });
-=======
       noAvatar});
->>>>>>> 25bb91e524ae038313b1a9c4f441dadd5a4399d8
   }
 }
 
