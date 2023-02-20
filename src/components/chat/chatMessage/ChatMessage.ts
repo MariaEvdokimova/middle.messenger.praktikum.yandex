@@ -5,7 +5,6 @@ import {Block} from '../../../services/Block';
 interface ChatMessageProps {
   text: string,
   time: string,
-  classText?: string,
   classTime?: string,
   attr?: {
     class?: string
@@ -21,7 +20,6 @@ export class ChatMessage extends Block<ChatMessageProps> {
     return this.compile(tpl, {
       text: this.props.text,
       time: this.props.time,
-      classText: this.props.classText,
       classTime: this.props.classTime,
       attr: this.props.attr,
       styles,

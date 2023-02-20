@@ -2,6 +2,10 @@ import tpl from './Input.hbs';
 import * as styles from './Input.scss';
 import {Block} from '../../services/Block';
 import {validationForm} from '../../utils/ValidationForm';
+import connect from '../../services/store/Connect';
+import Store from '../../services/store/Store';
+
+let store = Store.getState().user;
 
 interface InputProps {
   value?: string,
@@ -52,7 +56,7 @@ export class Input extends Block<InputProps> {
 
   render() {
     return this.compile(tpl, {
-      value: this.props.value,
+      value: !!store ? (store[this.props.name as keyof typeof store]) : this.props.value,
       name: this.props.name,
       type: this.props.type,
       classInput: this.props.classInput,
@@ -65,3 +69,6 @@ export class Input extends Block<InputProps> {
     });
   }
 }
+
+const withUser = connect((state) => ({ ...state.user }));
+export const InputComponent = withUser(Input as typeof Block);

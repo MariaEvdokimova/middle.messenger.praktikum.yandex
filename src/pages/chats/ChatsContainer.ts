@@ -1,51 +1,26 @@
-import {ChatBox} from '../../components/chat/chatBox/ChatBox';
+import {ChatBoxComponent} from '../../components/chat/chatBox/ChatBox';
 import {ChatFooter} from '../../components/chat/chatFooter/ChatFooter';
-import {Chats} from './Chats';
+import { ChatPage} from './Chats';
 import {Link} from '../../components/link/Link';
-import {ChatItem} from '../../components/chat/chatItem/ChatItem';
-import {ChatMessage} from '../../components/chat/chatMessage/ChatMessage';
-import {ChatMessageGroup} from '../../components/chat/chatMessageGroup/ChatMessagesGroup';
 import {Input} from '../../components/input/Input';
 import {Button} from '../../components/button/Button';
-import {Form} from '../../components/form/Form';
-import {slisedText} from '../../utils/SlicedText';
+import {Form, FormComponent} from '../../components/form/Form';
 import {DropdownList} from '../../components/dropdownList/DropdownList';
-import {ChatHeader} from '../../components/chat/chatHeader/ChatHeader';
-import {usersList} from '../../data/messages.json';
+import { ChatHeaderComponent} from '../../components/chat/chatHeader/ChatHeader';
 import hamburger from '../../../static/img/hamburger.svg';
 import clip from '../../../static/img/clip.svg';
+import deleteChat from '../../../static/img/delete-chat.svg';
 import add from '../../../static/img/add.svg';
 import deleteImg from '../../../static/img/delete.svg';
 import photoOrVideo from '../../../static/img/photo-or-video.svg';
 import file from '../../../static/img/file.svg';
 import location from '../../../static/img/location.svg';
-import noAvatar from '../../../static/img/no-pic.svg';
-
-interface Imessage {
-    message: string,
-    date: string,
-    time: string,
-    isViewed: boolean,
-    isOwner: boolean
-  }
-
-  interface Iuser {
-    avatar: string,
-    name: string,
-    messages: Array<Imessage>
-  }
-
-
-const headerLinksData = [
-  {
-    img: add,
-    value: 'Добавить пользователя',
-  },
-  {
-    img: deleteImg,
-    value: 'Удалить пользователя',
-  },
-];
+import { authController } from '../../controllers/AuthController';
+import { router } from '../../services/Router';
+import { Modal } from '../../components/modal/Modal';
+import { chatsController } from '../../controllers/ChatsController';
+import Store from '../../services/store/Store';
+import { socketController } from '../../controllers/SocketController';
 
 const footerLinksData = [
   {
@@ -62,209 +37,305 @@ const footerLinksData = [
   },
 ];
 
-export const chats = () => {
-  const headerList: Array<Link> = [];
-  const footerList: Array<Link> = [];
-  const chatItems: Array<ChatItem> = [];
-  const chatMessages: Array<ChatMessage> =[];
+const headerList: Array<Link> = [];
 
-  if ( usersList ) {
-    usersList.forEach(( user: Iuser ) => {
-      const chatItem = new ChatItem({
-        img: user.avatar,
-        name: user.name,
-        text: slisedText(user.messages[0].message),
-        time: user.messages[0].time,
-        unviewed: '2',
-        classAvatar: 'users__avatar',
-        classInfo: 'users__info',
-        className: 'users__name',
-        classText: 'users__text',
-        classMessegeInfo: 'users__mess-info',
-        classTime: 'users__time',
-        classCount: 'users__count',
-        attr: {
-          class: 'users__item',
-        },
-      });
-      chatItems.push(chatItem);
-    });
+const inputModal = new Input({
+  type: 'text',
+  classInput: 'modal-chat__input',
+  classLable: 'modal-chat__lable',
+});
+
+const buttonModal = new Button({
+  classImg: 'visually-hidden',
+  attr: {
+    type: 'submit',
+    class: 'button modal-chat__button--add'
   }
+});
 
+const formModal = new FormComponent({
+  inputs: [inputModal],
+  formButton: buttonModal,
+}) as Form;
 
-  headerLinksData.forEach(( value ) => {
-    const linkItem = new Link({
-      value: value.value,
-      img: value.img,
-      classImg: 'dropdown__link-img',
-      attr: {
-        class: 'dropdown__item',
-      },
-    });
+const modal = new Modal({
+  form: formModal
+});
 
-    headerList.push(linkItem);
-  });
+const linkAddUser = new Link({
+  value: 'Добавить пользователя',
+  img: add,
+  classImg: 'dropdown__link-img',
+  attr: {
+    class: 'dropdown__item',
+  },
+  events: {
+    click: (event) => {
+      event!.preventDefault();
 
-  const headerLink = new Link({
-    img: hamburger,
-    classImg: 'dropdown__img',
-    events: {
-      click: ( event ) => {
-        if ( event ) {
-          event.preventDefault();
+      inputModal.setProps({
+        name: 'addUser',
+        lable: 'Добавить пользователя',
+      });
+      
+      buttonModal.setProps({
+        value: 'Добавить',
+      });
+
+      const formModalAddUser = new FormComponent({
+        inputs: [inputModal],
+        formButton: buttonModal,
+        events: {
+          submit: ( event: any ) => {
+            event!.preventDefault();
+            const value = inputModal.getContent()!.querySelectorAll('input')[0].value;
+            if (value !== '' && value !== null) {
+              chatsController.addUserToChat(value);
+      
+              modal.hidden();
+              modal.clearInput();
+            }
+          } 
         }
-        headerDropdownList.toggle('visually-hidden');
-        headerDropdownList.toggle('dropdown__list');
-        headerLink.positionRect(headerDropdownList, 55, -175);
-      },
-    },
-    attr: {
-      class: '',
-      href: '',
-    },
-  });
+      }) as Form;
 
-  const headerDropdownList = new DropdownList({
-    value: headerList,
-    attr: {
-      class: 'visually-hidden',
-    },
-  });
-
-  const chatHeader = new ChatHeader({
-    avatar: noAvatar,
-    name: 'Андрей',
-    headerLink: headerLink,
-    headerDropdownList,
-    attr: {
-      class: 'chat-header',
-    },
-  });
-
-  if ( usersList[0].messages ) {
-    usersList[0].messages.forEach(( message: Imessage ) => {
-      const classMessage = message.isOwner ? 'message-owner' : '';
-      const classTime = message.isOwner ? 'message__time-blue' : '';
-
-      const messageItem = new ChatMessage({
-        text: message.message,
-        time: message.time,
-        classText: 'message__text',
-        classTime: 'message__time ' + classTime,
-        attr: {
-          class: 'message ' + classMessage,
-        },
+        modal.setProps({ 
+          form: formModalAddUser
       });
-      chatMessages.push(messageItem);
-    });
+
+      modal.visible();
+      linkAddUser.positionRect(modal, '88px', `calc(100% - 391px)`);
+    }
   }
+});
 
-  const chatMessageGroup = new ChatMessageGroup({
-    date: '19 июня',
-    chatMessages,
-    attr: {
-      class: 'message__container',
-    },
-  });
+const linkDeleteUser = new Link({
+  value: 'Удалить пользователя',
+  img: deleteImg,
+  classImg: 'dropdown__link-img',
+  attr: {
+    class: 'dropdown__item',
+  },
+  events: {
+    click: (event) => {
+      event!.preventDefault();
 
-  const inputSearch = new Input({
-    name: 'message',
-    type: 'search',
-    classInput: 'form-footer__search',
-    classLable: '',
-    lable: '',
-    placeholder: 'Сообщение',
-    attr: {
-      class: 'form-footer__input',
-    },
-  });
+      inputModal.setProps({
+        name: 'deleteUser',
+        lable: 'Удалить пользователя',
+      });
+      
+      buttonModal.setProps({
+        value: 'Удалить',
+      });
 
-  const buttonSearch = new Button({
-    classImg: 'form-footer__img',
-    attr: {
-      class: 'form-footer__button',
-      type: 'submit',
-    },
-  });
+      const formModalDeleteUser = new FormComponent({
+        inputs: [inputModal],
+        formButton: buttonModal,
+        events: {
+          submit: ( event: any ) => {
+            event!.preventDefault();
+            const value = inputModal.getContent()!.querySelectorAll('input')[0].value;
+            if (value !== '' && value !== null) {
+              chatsController.deleteUserFromChat(value);
+      
+              modal.hidden();
+              modal.clearInput();
+            }
+          } 
+        }
+      }) as Form;
 
-  const footerForm = new Form({
-    inputs: [inputSearch],
-    formButton: buttonSearch,
-    buttonClass: '',
-    events: {
-      submit: (event) => {
-        console.log(footerForm.getObjLog(footerForm));
+        modal.setProps({ 
+          form: formModalDeleteUser
+      });
+
+      modal.visible();
+      linkDeleteUser.positionRect(modal, '88px', `calc(100% - 391px)`);
+    }
+  }
+});
+
+const linkdeleteChat = new Link({
+  value: 'Удалить этот чат',
+  img: deleteChat,
+  classImg: 'dropdown__link-img',
+  attr: {
+    class: 'dropdown__item text__red',
+  },
+  events: {
+    click: () => {
+      if (Store.getState().selectedChat.id) {
+      chatsController.deleteChat( { chatId: Store.getState().selectedChat.id } );
+      Store.set('selectedChat', {
+        id: '', 
+        title: '',
+        avatar: ''
+      });
+    }
+      headerDropdownList.toggle('visually-hidden');
+      headerDropdownList.toggle('dropdown__list');
+    }
+  }
+});
+
+headerList.push(linkAddUser, linkDeleteUser, linkdeleteChat); 
+
+const headerLink = new Link({
+  img: hamburger,
+  classImg: 'dropdown__img',
+  events: {
+    click: ( event ) => {
+      if ( event ) {
         event.preventDefault();
-      },
+      }
+      headerDropdownList.toggle('visually-hidden');
+      headerDropdownList.toggle('dropdown__list');
+      chatHeader.positionRect(headerDropdownList, '34px', '-175px');
     },
-    attr: {
-      class: 'form-footer',
+  },
+  attr: {
+    class: '',
+    href: '',
+  },
+});
+
+const headerDropdownList = new DropdownList({
+  value: headerList,
+  attr: {
+    class: 'visually-hidden',
+  },
+});
+
+const chatHeader = new ChatHeaderComponent({
+  headerLink: headerLink,
+  headerDropdownList,
+  attr: {
+    class: 'chat-header',
+  },
+});
+
+const inputSearch = new Input({
+  name: 'message',
+  type: 'search',
+  classInput: 'form-footer__search',
+  classLable: '',
+  lable: '',
+  placeholder: 'Сообщение',
+  attr: {
+    class: 'form-footer__input',
+  },
+});
+
+const buttonSearch = new Button({
+  classImg: 'form-footer__img',
+  attr: {
+    class: 'form-footer__button',
+    type: 'submit',
+  },
+});
+
+const footerForm = new Form({
+  inputs: [inputSearch],
+  formButton: buttonSearch,
+  buttonClass: '',
+  events: {
+    submit: (event) => {
+      event.preventDefault();
+      const value = inputSearch.getContent()!.querySelectorAll('input')[0].value;
+      if (value !== '' && value !== null) {
+       socketController.sendMessage(value);
+       inputSearch.getContent()!.querySelectorAll('input')[0].value = '';
+      }
     },
-  });
+  },
+  attr: {
+    class: 'form-footer',
+  },
+});
 
-  footerLinksData.forEach(( value ) => {
-    const linkItem = new Link({
-      value: value.value,
-      img: value.img,
-      classImg: 'dropdown__link-img',
-      attr: {
-        class: 'dropdown__item',
-      },
-    });
-    footerList.push(linkItem);
-  });
+const chatFooter = new ChatFooter({
+  footerForm,
+  attr: {
+    class: 'chat-footer',
+  },
+});
 
-  const footerLink = new Link({
-    img: clip,
-    classImg: 'dropdown__img footer__dropdown-img',
-    events: {
-      click: ( event ) => {
-        if ( event ) {
-          event.preventDefault();
+const chatBox = new ChatBoxComponent({
+  chatHeader,
+  chatFooter,
+  attr: {
+    class: 'chat-box',
+  },
+});
+
+const linkAddChat = new Link({
+  img: add,
+  classImg: 'chats__link-img',
+  attr: {
+    class: 'chats__link-add',
+  },
+  events: {
+    click: ( event ) => {
+      event!.preventDefault();
+
+      inputModal.setProps({
+        name: 'title',
+        lable: 'Введите название чата',
+      });
+
+      buttonModal.setProps({
+        value: 'Создать',
+      });
+
+      const formModalAddChat = new FormComponent({
+        inputs: [inputModal],
+        formButton: buttonModal,
+        events: {
+          submit: ( event: any ) => {
+            event!.preventDefault();
+            const value = inputModal.getContent()!.querySelectorAll('input')[0].value;
+            if (value !== '' && value !== null) {
+              chatsController.createChat( { title: value } );
+              
+              modal.hidden();
+              inputModal.getContent()!.querySelectorAll('input')[0].value = '';
+            }
+          }
         }
-        footerDropdownList.toggle('visually-hidden');
+      }) as Form;
 
-        footerLink.positionRect(footerDropdownList, -178, 0);
-      },
-    },
-    attr: {
-      class: '',
-      href: '',
-    },
-  });
+        modal.setProps({ 
+          form: formModalAddChat
+      });
 
-  const footerDropdownList = new DropdownList({
-    value: footerList,
-    attr: {
-      class: 'visually-hidden dropdown__list',
-    },
-  });
+      modal.visible();
+      linkAddChat.positionRect(modal, '35px', '32px');
+    }
+  }
+});
 
-  const chatFooter = new ChatFooter({
-    footerForm,
-    footerLink: footerLink,
-    footerDropdownList,
-    attr: {
-      class: 'chat-footer',
-    },
-  });
+const linkProfile = new Link({
+  value: 'Профиль',
+  classImg: 'visually-hidden',
+  events: {
+    click: ( event ) => {
+        event!.preventDefault();
+        authController.user();
+        router.go('/settings');
+    }
+  },
+  attr: {
+    class: 'chats__link',
+  },
+});
 
-  const chatBox = new ChatBox({
-    chatHeader,
-    chatMessageGroup,
-    chatFooter,
-    attr: {
-      class: 'chat-box',
-    },
-  });
-
-  const chats = new Chats({
-    chatItems,
-    chatBox,
-    attr: {
-      class: 'chats chats__wrapper',
-    },
-  });
-
-  return chats;
-};
+export  const chats = new ChatPage({  
+  linkAddChat,
+  linkProfile,
+  chatBox,
+  attr: {
+    class: 'chats chats__wrapper',
+  },
+  modal
+});

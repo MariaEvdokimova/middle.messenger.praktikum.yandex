@@ -1,13 +1,19 @@
 import {Avatar} from '../../components/avatar/Avatar';
 import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
-import {Input} from '../../components/input/Input';
+import {Input, InputComponent} from '../../components/input/Input';
 import {Link} from '../../components/link/Link';
 import {Popup} from '../../components/popup/Popup';
-import {Profile} from './Profile';
+import {Profile, ProfilePage} from './Profile';
 import noAvatar from '../../../static/img/no-pic.svg';
-import {owner} from '../../data/owner.json';
+import nerrow from '../../../static/img/nerrow.svg';
 import { Classes } from '../../css/classes';
+import { authController } from '../../controllers/AuthController';
+import { router } from '../../services/Router';
+import Store from '../../services/store/Store';
+import { userController } from '../../controllers/UserController';
+
+let store = Store.getState().user;
 
 interface Ivalue {
     name: 'email' |'login' | 'first_name' | 'second_name' | 'display_name' | 'phone',
@@ -16,15 +22,6 @@ interface Ivalue {
     disabled: string,
     [key: string]: any
   }
-
-const dataProfile = {
-  'email': 'pochta@yandex.ru',
-  'login': 'Иванов',
-  'first_name': 'Иван',
-  'second_name': 'Иванов',
-  'display_name': 'Иван',
-  'phone': '+7 (909) 123 45 67',
-};
 
 const inputsDataProfile: Array<Ivalue>= [
   {
@@ -65,12 +62,20 @@ const inputsDataProfile: Array<Ivalue>= [
   },
 ];
 
-export const profile = () => {
+  const linkNerrow = new Link({
+    img: nerrow,
+    classImg: 'profile__nerrow-img',
+    events: {
+      click: () => {
+          router.back();
+      }
+    }
+  });
+
   const inputsProfile: Array<Input> = [];
 
   inputsDataProfile.forEach(( value: Ivalue ) => {
-    const inputItem = new Input({
-      value: dataProfile[value.name],
+    const inputItem = new InputComponent({
       name: value.name,
       type: value.type,
       classInput: 'info__item-value profile__form-input',
@@ -84,7 +89,7 @@ export const profile = () => {
     inputsProfile.push(inputItem);
   });
 
-  const profileButton = new Button({
+  const editProfileButton = new Button({
     value: 'Save',
     classImg: 'visually-hidden',
     attr: {
@@ -95,7 +100,7 @@ export const profile = () => {
 
   const formProfile = new Form({
     inputs: inputsProfile,
-    formButton: profileButton,
+    formButton: editProfileButton,
     buttonClass: 'profile__button',
     attr: {
       class: 'profile__form',
@@ -103,21 +108,32 @@ export const profile = () => {
     events: {
       submit: (event) => {
         event.preventDefault();
-        console.log(formProfile.getObjLog(formProfile));
-        formProfile.validation(formProfile);
-      },
-    },
-  });
+        const isValid = formProfile.validation(formProfile);
 
-  const profileAatar = new Avatar({
-    linkToPopup: '/profile',
-    avatarImg: noAvatar,
-    events: {
-      click: ( event ) => {
-        if ( event ) {
-          event.preventDefault();
+        if ( isValid ) {
+          const data = formProfile.getObjLog(formProfile);
+          userController.changeProfile( data );
+
+          const buttonClass = {
+            attr: {
+              class: 'visually-hidden',
+            },
+          };
+  
+          const attrDisabled = {
+            disabled: 'disabled',
+          };
+  
+          inputsProfile.forEach((input) => {
+            input.setProps(attrDisabled);
+          });
+  
+          editProfileButton.removeAttribute('class');
+          editProfileButton.setProps(buttonClass);
+          linkEditProfile.show();
+          linkEditPasswordProfile.show();
+          linkExit.show();
         }
-        popupEditAvatar.visible();
       },
     },
   });
@@ -144,8 +160,8 @@ export const profile = () => {
           input.setProps(attrDisabled);
         });
 
-        profileButton.removeAttribute('class');
-        profileButton.setProps(buttonClass);
+        editProfileButton.removeAttribute('class');
+        editProfileButton.setProps(buttonClass);
         linkEditProfile.hide();
         linkEditPasswordProfile.hide();
         linkExit.hide();
@@ -160,9 +176,13 @@ export const profile = () => {
     value: 'Изменить пароль',
     classImg: 'visually-hidden',
     attr: {
-      class: 'links__item',
-      href: '/profileEditPassword',
+      class: 'links__item'
     },
+    events: {
+      click: () => {
+          router.go('/profileEditPassword');
+      }
+    }
   });
 
   const linkExit = new Link({
@@ -170,52 +190,22 @@ export const profile = () => {
     classImg: 'visually-hidden',
     attr: {
       class: 'links__item--red',
-      href: '/',
-    },
-  });
-
-  const buttonPopup = new Button({
-    value: 'Поменять',
-    classImg: 'visually-hidden',
-    events: {
-      click: ( event ) => {
-        if ( event ) {
-          event.preventDefault();
-        }
-      },
-    },
-  });
-
-  const popupEditAvatar = new Popup({
-    button: buttonPopup,
-    attr: {
-      class: 'modal',
     },
     events: {
-      click: (event) => {
-        if ( event ) {
-          event.preventDefault();
-          event.stopPropagation();
-          if (event.eventPhase === 2) {
-            popupEditAvatar.hidden();
-          }
-        }
-      },
-    },
+      click: () => {
+        authController.logout();
+      }
+    }
   });
 
-  const profile = new Profile({
-    profileAatar,
+   export const profile = new ProfilePage({
+    linkNerrow,
     formProfile,
     linkEditProfile,
     linkEditPasswordProfile,
     linkExit,
-    popupEditAvatar,
-    profileTitle: owner.login,
+    profileTitle: !!store ? store.login : '',
     attr: {
       class: Classes.ClassWrapper,
     },
   });
-
-  return profile;
-};

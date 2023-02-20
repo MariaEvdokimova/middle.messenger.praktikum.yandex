@@ -1,10 +1,10 @@
 import { Classes } from '../../css/classes';
 import {Error} from './Error';
 
-export const error = () => {
+export const error = (code: number, text: string) => {
   const error = new Error({
-    errCode: 404,
-    errMessage: 'Не туда попали',
+    errCode: code,
+    errMessage: text,
     attr: {
       class: Classes.ClassWrapper,
     },

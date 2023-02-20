@@ -4,9 +4,12 @@ import {Block} from '../../services/Block';
 import {Input} from '../input/Input';
 import {Button} from '../button/Button';
 import {validationForm} from '../../utils/ValidationForm';
+import { isEqual } from '../../utils/IsEqual';
+import connect from '../../services/store/Connect';
+import Store from '../../services/store/Store';
 
 interface FormProps {
-  inputs: Array<Input>,
+  inputs?: Array<Input>,
   formButton?: Button,
   buttonClass?: string,
   events?: {
@@ -21,6 +24,23 @@ interface FormProps {
 export class Form extends Block<FormProps> {
   constructor(props: FormProps) {
     super('form', props);
+
+  }
+
+  isPasswordEqual( form: Form, val1: Input, val2: Input ): boolean {
+    
+    const input1 = val1.getContent()!.querySelectorAll('input');
+    const input2 = val2.getContent()!.querySelectorAll('input');
+    
+    const res = isEqual( input1[0].value, input2[0].value ); 
+
+    if ( !res ) {
+      const formContent = form.getContent();
+      const errorDIV = formContent!.querySelector('.form__validation-error');
+      errorDIV!.innerHTML = 'Пароли не совпадают';
+    }
+
+    return res;
   }
 
   validation(form: Form): boolean {
@@ -67,7 +87,10 @@ export class Form extends Block<FormProps> {
       formButton: this.props.formButton,
       buttonClass: this.props.buttonClass,
       attr: this.props.attr,
-      styles,
+      styles, 
     });
   }
 }
+
+const withUser = connect((state) => ({ ...state }));
+export const FormComponent = withUser(Form as typeof Block);

@@ -18,6 +18,11 @@
   background-color: $ground-color;
 }
 
+.profile__nerrow-img {
+  width: 28;
+  height: 28;
+}
+
 .profile__avatar-link {
   position: relative;
   display: block;
@@ -104,10 +109,12 @@
 .links__item {
   margin: 10px 0;
   color: $link-color;
+  cursor: pointer;
 }
 
 .links__item--red {
   color: red;
+  cursor: pointer;
 }
 
 .profile__form {
