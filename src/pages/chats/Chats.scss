@@ -22,6 +22,8 @@
 
 .chats__header {
   grid-area: sidebar_header;
+  display: flex;
+  flex-wrap: wrap;
   border-bottom: solid 1px $border-color;
   margin: 0 10px;
 }
@@ -35,14 +37,27 @@
   grid-area: sidebar_footer;
 }
 
+.chats__link-add {
+  margin: 20px 117px 0 0;
+  width: 23px;
+  cursor: pointer;
+}
+
+.chats__link-img {
+  width: 23px;
+  height: 23px;
+}
+
 .chats__link {
   display: block;
   position: relative;
+  width: 96px;
   margin: 20px 27px 23px;
   text-align: right;
   font-size: 12px;
   line-height: 12px;
   color: $text-color-light;
+  cursor: pointer;
 
   &:before {
     position: absolute;
@@ -97,6 +112,7 @@
 .users__item {
   display: flex;
   padding: 10px 0;
+  cursor: pointer;
 }
 
 .users__avatar {

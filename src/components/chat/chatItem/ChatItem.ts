@@ -2,18 +2,18 @@ import tpl from './ChatItem.hbs';
 import {Block} from '../../../services/Block';
 
 interface ChatItemProps {
-  img?: string,
-  name: string,
-  text: string,
-  time: string,
-  unviewed: string,
-  classAvatar: string,
-  classInfo: string,
-  className: string,
-  classText: string,
-  classMessegeInfo: string,
-  classTime: string,
-  classCount: string,
+  img?: string | SVGElement,
+  name?: string,
+  text?: string,
+  time?: string,
+  unviewed?: string,
+  classAvatar?: string,
+  classInfo?: string,
+  className?: string,
+  classText?: string,
+  classMessegeInfo?: string,
+  classTime?: string,
+  classCount?: string,
   events?: {
     click: (event?: MouseEvent) => void
   },

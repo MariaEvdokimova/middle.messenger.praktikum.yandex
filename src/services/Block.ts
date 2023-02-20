@@ -141,7 +141,6 @@ class Block<Props extends object> {
       return;
     }
 
-    this._setUpdate = false;
     const oldValue = (this.props);
     const {children, props} = this._getChildrenAndProps(nextProps);
 
@@ -153,10 +152,7 @@ class Block<Props extends object> {
       Object.assign( this.props, props );
     }
 
-    if (this._setUpdate) {
-      this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldValue, this.props);
-      this._setUpdate = false;
-    }
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldValue, this.props);
   };
 
   get element() {
@@ -173,7 +169,7 @@ class Block<Props extends object> {
     this._addAttributes();
   }
 
-  protected render(): DocumentFragment {
+  render(): DocumentFragment {
     return new DocumentFragment();
   }
 
@@ -245,7 +241,7 @@ class Block<Props extends object> {
   }
 
   show() {
-    this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'flex';//'block';
   }
 
   hide() {
@@ -264,10 +260,11 @@ class Block<Props extends object> {
     this.getContent()!.classList.toggle(className);
   }
 
-  positionRect(el: Block<any>, top: number, left: number) {
-    el.getContent()!.style.top = `${top}px`;
-    el.getContent()!.style.left = `${left}px`;
+  positionRect(el: Block<any>, top: string, left: string) {
+    el.getContent()!.style.top = top;
+    el.getContent()!.style.left = left;
   }
+
 }
 
 export {Block};

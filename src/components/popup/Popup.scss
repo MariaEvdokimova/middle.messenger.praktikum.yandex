@@ -42,6 +42,7 @@
 }
 
 .modal__file-text {
+  cursor: pointer;
   display: block;
   margin-bottom: 45px;
   font-size: 12px;
@@ -53,9 +54,14 @@
 
 .modal__button {
   display: flex;
-  margin: 0 30px;
+  margin: 0 30px 10px;
 
   & :first-child {
     width: 100%;
   }
+}
+
+.modal__link {
+  text-align: center;
+  display: block;
 }

@@ -3,7 +3,7 @@ import {Block} from '../../services/Block';
 
 interface AvatarProps {
     linkToPopup: string,
-    avatarImg: SVGElement,
+    avatarImg: SVGElement | string,
     events: {
       click: (event?: MouseEvent) => void
     }

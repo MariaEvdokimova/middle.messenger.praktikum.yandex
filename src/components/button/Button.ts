@@ -7,7 +7,7 @@ interface ButtonProps {
   value?: string,
   classImg?: string,
   events?: {
-    click: (event?: MouseEvent) => void,
+    click?: (event?: MouseEvent) => void
   },
   attr?: {
     class?: string,
