@@ -6,12 +6,7 @@ import {Input} from '../../components/input/Input';
 import {Button} from '../../components/button/Button';
 import {Form, FormComponent} from '../../components/form/Form';
 import {DropdownList} from '../../components/dropdownList/DropdownList';
-<<<<<<< HEAD
-import {ChatHeader} from "../../components/chat/chatHeader/ChatHeader";
-import {usersList} from '../../data/messages.json';
-=======
 import { ChatHeaderComponent} from '../../components/chat/chatHeader/ChatHeader';
->>>>>>> 25bb91e524ae038313b1a9c4f441dadd5a4399d8
 import hamburger from '../../../static/img/hamburger.svg';
 import clip from '../../../static/img/clip.svg';
 import deleteChat from '../../../static/img/delete-chat.svg';
@@ -320,16 +315,6 @@ const linkAddChat = new Link({
   }
 });
 
-<<<<<<< HEAD
-  const chatFooter = new ChatFooter({
-    footerForm,
-    footerLink: footerLink,
-    footerDropdownList,
-    attr: {
-      class: 'chat-footer'
-    },
-  });
-=======
 const linkProfile = new Link({
   value: 'Профиль',
   classImg: 'visually-hidden',
@@ -344,7 +329,6 @@ const linkProfile = new Link({
     class: 'chats__link',
   },
 });
->>>>>>> 25bb91e524ae038313b1a9c4f441dadd5a4399d8
 
 export  const chats = new ChatPage({  
   linkAddChat,
