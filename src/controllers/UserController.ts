@@ -2,7 +2,6 @@ import { UserAPI } from "../api/user-api";
 import { router } from "../services/Router";
 import store from '../services/store/Store';
 import { Indexed } from "../utils/Interfeces";
-import { authController } from "./AuthController";
 
 class UserController {
     private _api = new UserAPI();
