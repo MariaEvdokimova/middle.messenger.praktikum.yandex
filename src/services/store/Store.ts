@@ -36,13 +36,12 @@ class Store extends EventBus {
 		return this._state;
 	}
 
-	removeState() {
+	public removeState() {
 		this._state = {};
 		this.emit(StoreEvents.Updated);
 	}
 
 	public set(path: string, value: unknown) {
-		//this._state[id] = value;
         set(this._state, path, value);
 		this.emit(StoreEvents.Updated);
 		return this;
