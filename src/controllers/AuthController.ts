@@ -2,6 +2,7 @@ import { AuthAPI } from "../api/auth-api";
 import { router } from "../services/Router";
 import store from '../services/store/Store';
 import { Indexed } from "../utils/Interfeces";
+import { chatsController } from "./ChatsController";
 
 class AuthController {
     private _api = new AuthAPI();
@@ -31,7 +32,8 @@ class AuthController {
                 const code = res.status;
 
                 if ( code === 200 ) {
-                this.user();    
+                this.user(); 
+                chatsController.getChats();
                 router.go('/messenger');
                 }
             });

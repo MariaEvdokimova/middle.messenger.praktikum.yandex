@@ -26,7 +26,7 @@ interface ChatsProps {
 export class Chats extends Block<ChatsProps> {
   constructor( props: ChatsProps) {
     super('div', props);
-
+    
     chatsController.getChats();
 
     let chats = Store.getState().chats;
@@ -68,6 +68,7 @@ export class Chats extends Block<ChatsProps> {
       this.setProps({ chatItems: chatItems});
     
       Store.on(StoreEvents.Updated, () => {
+
         chats = Store.getState().chats;
         chatItems = [];
         
@@ -125,6 +126,7 @@ export class Chats extends Block<ChatsProps> {
     return this.compile(tpl, {
       linkAddChat: this.props.linkAddChat,
       linkProfile: this.props.linkProfile,
+      chatItems: this.props.chatItems,
       chatBox: this.props.chatBox,
       attr: this.props.attr,
       modal: this.props.modal,

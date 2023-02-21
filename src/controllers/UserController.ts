@@ -31,8 +31,6 @@ class UserController {
                     const code = res.status;
                     if ( code === 200 ) {
                         router.go('/settings');
-                    } else {
-                        console.log('code ' + code);
                     }
                 });
         } catch (e: any) {
@@ -48,9 +46,7 @@ class UserController {
                     const code = res.status;
                     if ( code === 200 ) {
                         store.set('user', JSON.parse(res.response));
-                    } else {
-                        console.log('code ' + code);
-                    }
+                    } 
                 });
         } catch (e: any) {
             console.error(e.message);

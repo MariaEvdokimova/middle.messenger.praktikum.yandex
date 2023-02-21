@@ -3,6 +3,7 @@ import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
 import {Link} from '../../components/link/Link';
 import { authController } from '../../controllers/AuthController';
+import { chatsController } from '../../controllers/ChatsController';
 import { Classes } from '../../css/classes';
 import { router } from '../../services/Router';
 import {Authorization} from './Authorization';
@@ -55,7 +56,7 @@ const inputDataAuth = [
         formAuth.validation(formAuth);
       
         const data = formAuth.getObjLog(formAuth);
-        authController.signin( data );
+        authController.signin( data );        
       },
     },
     

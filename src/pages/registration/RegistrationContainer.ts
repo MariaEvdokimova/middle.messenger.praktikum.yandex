@@ -3,6 +3,7 @@ import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
 import {Link} from '../../components/link/Link';
 import { authController } from '../../controllers/AuthController';
+import { chatsController } from '../../controllers/ChatsController';
 import { Classes } from '../../css/classes';
 import { router } from '../../services/Router';
 import {Registration} from './Registration';
@@ -95,7 +96,7 @@ const formRegistration = new Form({
 
       if (isValid && isPasswordEqual) {
         const data = formRegistration.getObjLog(formRegistration);
-        authController.signup( data )
+        authController.signup( data );        
       }
     },
   },
