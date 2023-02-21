@@ -47,7 +47,20 @@ class AuthController {
             await this._api
                 .user()
                 .then( (res: any) => {
-                    store.set('user', JSON.parse(res.response));
+                    const code = res.status;
+
+                    if (code === 200) {
+                        store.set('user', JSON.parse(res.response));
+                        
+                        if (window.location.pathname == '/' || window.location.pathname === '/sign-up' ) {
+                            router.go('/messenger');
+                        }
+
+                    }else if (code === 401) {
+                        if (window.location.pathname !== '/' && window.location.pathname !== '/sign-up' ) {
+                            router.go('/');
+                        }
+                    }
                 })
         } catch (e: any) {
             console.error(e.message);
