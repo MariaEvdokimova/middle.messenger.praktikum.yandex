@@ -18,7 +18,7 @@ class ChatsController {
                     }
                 });
         } catch (e: any) {
-            console.error(e.message);
+            console.error(e);
         }
     }
 

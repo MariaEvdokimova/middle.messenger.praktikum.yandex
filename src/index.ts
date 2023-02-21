@@ -6,8 +6,6 @@ import {profile} from './pages/profile/ProfileContainer';
 import {profileEditPassword} from './pages/profile/ProfileEditPasswordContainer';
 import {error} from './pages/error/ErrorContainer';
 import { router } from './services/Router';
-import { authController } from './controllers/AuthController';
-import Store from './services/store/Store';
 
 window.addEventListener('DOMContentLoaded', () => {
   router

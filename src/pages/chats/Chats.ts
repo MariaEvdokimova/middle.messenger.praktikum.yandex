@@ -71,7 +71,7 @@ export class Chats extends Block<ChatsProps> {
         chats = Store.getState().chats;
         chatItems = [];
         
-        if ( chats.length !== 0 ) {
+        if ( !!chats && chats.length !== 0 ) {
           chats.forEach(( chat: any ) => {
             const chatItem = new ChatItem({
               img: getAvatar(chat.avatar),

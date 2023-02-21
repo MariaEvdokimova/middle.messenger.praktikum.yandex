@@ -10,6 +10,9 @@ import connect from '../../services/store/Connect';
 import Store, { StoreEvents } from '../../services/store/Store';
 import { userController } from '../../controllers/UserController';
 import { getAvatar } from '../../utils/getAvatar';
+import { authController } from '../../controllers/AuthController';
+import { Input } from '../../components/input/Input';
+import { router } from '../../services/Router';
 
 interface ProfileProps {
   linkNerrow?: Link,
@@ -25,6 +28,53 @@ interface ProfileProps {
     class?: string
   }
 }
+
+interface Ivalue {
+  name: 'email' |'login' | 'first_name' | 'second_name' | 'display_name' | 'phone',
+  type: string,
+  lable: string,
+  disabled: string,
+  [key: string]: any
+}
+
+const inputsDataProfile: Array<Ivalue>= [
+{
+  name: 'email',
+  type: 'email',
+  lable: 'Mail',
+  disabled: 'disabled',
+},
+{
+  name: 'login',
+  type: 'text',
+  lable: 'Login',
+  disabled: 'disabled',
+},
+{
+  name: 'first_name',
+  type: 'text',
+  lable: 'First Name',
+  disabled: 'disabled',
+},
+{
+  name: 'second_name',
+  type: 'text',
+  lable: 'Second Name',
+  disabled: 'disabled',
+},
+{
+  name: 'display_name',
+  type: 'text',
+  lable: 'Nickname',
+  disabled: 'disabled',
+},
+{
+  name: 'phone',
+  type: 'tel',
+  lable: 'Phone',
+  disabled: 'disabled',
+},
+];
 
 const buttonPopup = new Button({
   value: 'Поменять',
@@ -75,11 +125,22 @@ export class Profile extends Block<ProfileProps> {
    constructor( props: ProfileProps) {
     super('div', props);
 
+    authController.user();
+
+    let login;
+    let avatar: string | SVGElement = '';
+    if(!!Store) {
+      if(!!Store.getState().user) {
+      avatar =  getAvatar(Store.getState().user.avatar);
+      login =  Store.getState().user.login;
+      }
+    }
+
     this.setProps({ 
       profileAatar: 
           new Avatar({
           linkToPopup: '/settings',
-          avatarImg: getAvatar(!!Store.getState().user ? Store.getState().user.avatar : ''),
+          avatarImg: avatar,
           events: {
             click: ( event ) => {
               event!.preventDefault();
@@ -87,15 +148,156 @@ export class Profile extends Block<ProfileProps> {
             },
           },
         }),
-      popupEditAvatar: popupEditAvatar
+      popupEditAvatar: popupEditAvatar,
+      profileTitle: login
   });
   
   Store.on(StoreEvents.Updated, () => {
+    let newLogin;
+    let newAvatar: string | SVGElement = '';
+    let user: any;
+
+    if(!!Store) {
+      if(!!Store.getState().user) {
+        newAvatar =  getAvatar(Store.getState().user.avatar);
+        newLogin =  Store.getState().user.login;
+        user = Store.getState().user;
+      }
+    }
+
+    const inputsProfile: Array<Input> = [];
+
+    inputsDataProfile.forEach(( value: Ivalue ) => {
+      const inputItem = new Input({
+        name: value.name,
+        value: !!user ? user[value.name] : '',
+        type: value.type,
+        classInput: 'info__item-value profile__form-input',
+        classLable: 'info__item-name profile__form-label',
+        lable: value.lable,
+        disabled: value.disabled,
+        attr: {
+          class: 'profile__form-item',
+        },
+      });
+      inputsProfile.push(inputItem);
+    });
+
+    const editProfileButton = new Button({
+      value: 'Save',
+      classImg: 'visually-hidden',
+      attr: {
+        class: ' visually-hidden',
+        type: 'submit',
+      },
+    });
+
+    const formProfile = new Form({
+      inputs: inputsProfile,
+      formButton: editProfileButton,
+      buttonClass: 'profile__button',
+      attr: {
+        class: 'profile__form',
+      },
+      events: {
+        submit: (event) => {
+          event.preventDefault();
+          const isValid = formProfile.validation(formProfile);
+
+          if ( isValid ) {
+            const data = formProfile.getObjLog(formProfile);
+            userController.changeProfile( data );
+
+            const buttonClass = {
+              attr: {
+                class: 'visually-hidden',
+              },
+            };
+
+            const attrDisabled = {
+              disabled: 'disabled',
+            };
+
+            inputsProfile.forEach((input) => {
+              input.setProps(attrDisabled);
+            });
+
+            editProfileButton.removeAttribute('class');
+            editProfileButton.setProps(buttonClass);
+            linkEditProfile.show();
+            linkEditPasswordProfile.show();
+            linkExit.show();
+          }
+        },
+      },
+    });
+
+    const linkEditProfile = new Link({
+      value: 'Изменить данные',
+      classImg: 'visually-hidden',
+      events: {
+        click: ( event ) => {
+          if ( event ) {
+            event.preventDefault();
+          }
+          const buttonClass = {
+            attr: {
+              class: 'button',
+            },
+          };
+
+          const attrDisabled = {
+            disabled: 'false',
+          };
+
+          inputsProfile.forEach((input) => {
+            input.setProps(attrDisabled);
+          });
+
+          editProfileButton.removeAttribute('class');
+          editProfileButton.setProps(buttonClass);
+          linkEditProfile.hide();
+          linkEditPasswordProfile.hide();
+          linkExit.hide();
+        },
+      },
+      attr: {
+        class: 'links__item',
+      },
+    });
+
+    const linkEditPasswordProfile = new Link({
+      value: 'Изменить пароль',
+      classImg: 'visually-hidden',
+      attr: {
+        class: 'links__item'
+      },
+      events: {
+        click: () => {
+            router.go('/profileEditPassword');
+        }
+      }
+    });
+
+    const linkExit = new Link({
+      value: 'Выйти',
+      classImg: 'visually-hidden',
+      attr: {
+        class: 'links__item--red',
+      },
+      events: {
+        click: () => {
+          Store.removeState();
+          authController.logout();
+        }
+      }
+    });
+
     this.setProps({ 
       profileAatar: 
           new Avatar({
           linkToPopup: '/settings',
-          avatarImg: getAvatar(Store.getState().user.avatar),
+          avatarImg: newAvatar,
           events: {
             click: ( event ) => {
               event!.preventDefault();
@@ -103,20 +305,22 @@ export class Profile extends Block<ProfileProps> {
             },
           },
         }),
-        popupEditAvatar: popupEditAvatar
+        popupEditAvatar: popupEditAvatar,
+        profileTitle: !!user ? user.login : '',
+        
+        formProfile: formProfile,
+        linkEditProfile: linkEditProfile,
+        linkEditPasswordProfile: linkEditPasswordProfile,
+        linkExit: linkExit,
       });
+
     });
   }
 
   render() {
     return this.compile(tpl, {
       linkNerrow: this.props.linkNerrow,
-      formProfile: this.props.formProfile,
-      buttonProfile: this.props.buttonProfile,
-      profileTitle: !!Store.getState().user ? Store.getState().user.login : '',
-      linkEditProfile: this.props.linkEditProfile,
-      linkEditPasswordProfile: this.props.linkEditPasswordProfile,
-      linkExit: this.props.linkExit,
+      profileTitle: this.props.profileTitle,
       attr: this.props.attr,
     });
   }

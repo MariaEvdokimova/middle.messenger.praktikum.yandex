@@ -20,18 +20,10 @@ interface ChatBoxProps {
 export class ChatBox extends Block<ChatBoxProps> {
   constructor(props: ChatBoxProps) {
     super('div', props);
-/*
-    const chatMessageGroup= new ChatMessageGroup({});
-    const messageItem = new ChatMessage({})
-    this.setProps({ 
-      chatMessageGroup: chatMessageGroup
-    });
-*/
+
     Store.on(StoreEvents.Updated, () => {
       let messages = Store.getState().messages;
       
-      console.log(messages);
-
       const chatMessages: Array<ChatMessage> =[];
       let chatMessageGr = new ChatMessageGroup({
         attr: {
@@ -39,7 +31,7 @@ export class ChatBox extends Block<ChatBoxProps> {
         },
       });
  
-      if ( messages.length !== 0) {
+      if ( !!messages && messages.length !== 0) {
         messages.forEach(( message: any ) => {
 
           const classMessage = message.user_id ===  Store.getState().user.id ? 'message-owner' : '';
