@@ -23,7 +23,7 @@
 .chats__header {
   grid-area: sidebar_header;
   display: flex;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
   border-bottom: solid 1px $border-color;
   margin: 0 10px;
 }
