@@ -6,9 +6,9 @@ import {Form} from '../../form/Form';
 import {Link} from '../../link/Link';
 
 interface ChatFooterProps {
-  footerForm: Form,
-  footerLink: Link,
-  footerDropdownList: DropdownList,
+  footerForm?: Form,
+  footerLink?: Link,
+  footerDropdownList?: DropdownList,
   attr?: {
     class?: string
   }

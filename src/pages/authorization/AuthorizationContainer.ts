@@ -2,7 +2,10 @@ import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
 import {Link} from '../../components/link/Link';
+import { authController } from '../../controllers/AuthController';
+import { chatsController } from '../../controllers/ChatsController';
 import { Classes } from '../../css/classes';
+import { router } from '../../services/Router';
 import {Authorization} from './Authorization';
 
 const inputDataAuth = [
@@ -18,7 +21,6 @@ const inputDataAuth = [
   },
 ];
 
-export const authorization = () => {
   const inputsAuth: Array<Input> = [];
 
   inputDataAuth.forEach(( value: Record<string, string> ) => {
@@ -48,35 +50,35 @@ export const authorization = () => {
     inputs: inputsAuth,
     formButton: formButtonAuth,
     buttonClass: 'form__item form__item-button',
-    attr: {
-      action: '/chats',
-    },
     events: {
       submit: (event) => {
-        console.log(formAuth.getObjLog(formAuth));
-        if (!formAuth.validation(formAuth)) {
-          event.preventDefault();
-        }
+        event.preventDefault();
+        formAuth.validation(formAuth);
+      
+        const data = formAuth.getObjLog(formAuth);
+        authController.signin( data );        
       },
     },
+    
   });
 
   const linkAuth = new Link({
     value: 'Create a profile',
     classImg: 'visually-hidden',
     attr: {
-      class: 'link',
-      href: '/registration',
+      class: 'link'
     },
+    events: {
+      click: () => {
+          router.go('/sign-up');
+      }
+    }
   });
 
-  const authorization = new Authorization({
+  export const authorization = new Authorization({
     formAuth,
     linkAuth,
     attr: {
       class: Classes.ClassWrapper,
     },
   });
-
-  return authorization;
-};

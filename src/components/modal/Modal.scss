@@ -1,0 +1,40 @@
+@import "../../css/variables.scss";
+
+.modal-chat {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  background: $white-color;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 12px;
+}
+
+.modal-chat__input {
+  width: 170px;
+  margin: 5px 10px 0;
+}
+
+.modal-chat__lable {
+  display: block;
+  margin-left: 12px;
+  font-size: 12px;
+}
+
+.modal-chat__button {
+  display: flex;
+  margin: 0 10px 10px;
+}
+
+.modal-chat__button--add {
+  display: block;
+  padding: 6px 20px !important;
+  margin: 0 auto;
+}
+
+.modal-chat__link {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}

@@ -6,8 +6,8 @@
     "stylelint": "npx stylelint \"./src/**/*.scss\"",
     "stylelint:fix": "stylelint \"./src/**/*.scss\" --fix",
     "dev": "parcel src/index.html --port 3000 --no-cache",
-    "build": "parcel build src/index.html",
-    "start": "node server.js"
+    "build": "parcel build src/index.html --no-cache",
+    "start": "npm run build && node server.js"
   },
   "repository": {
     "type": "git",

@@ -34,7 +34,7 @@ export const validationForm = (name: string, str: string): string => {
     }
   }
 
-  if (name === 'password' || name === 'Password_old' || name === 'password_conf') {
+  if (name === 'password' || name === 'oldPassword' || name === 'newPassword') {
     if (str.length < 8 || str.length > 40) {
       return 'Поле Password - длина от 8 до 40 символов';
     }

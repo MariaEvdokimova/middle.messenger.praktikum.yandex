@@ -1,3 +1,6 @@
+import { Indexed } from "../utils/Interfeces";
+import { queryStringify } from "../utils/QueryStringify";
+
 enum Methods {
     Get = 'GET',
     Post = 'POST',
@@ -5,21 +8,10 @@ enum Methods {
     Delete = 'DELETE',
 }
 
-function queryStringify<T>(data: Record<string, T>): string {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
-  }
-
-  const keys = Object.keys(data);
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-  }, '?');
-}
-
 type THTTPMethod = (
     url: string,
     options?: {
-        data?: Record<string, string | number>;
+        data?: Indexed | FormData;
         headers?: Record<string, string>;
         timeout?: number
     }
@@ -27,26 +19,32 @@ type THTTPMethod = (
 
  type TOptions = {
     method?: Methods;
-    data?: any;
+    data?: Indexed | FormData;
     headers?: Record<string, string>;
     timeout?: number;
   };
 
 class HTTPTransport {
-  get: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: Methods.Get}, options.timeout);
+  protected url: string;
+
+  constructor ( url: string ) {
+    this.url = url;
+  }
+
+  get: THTTPMethod = ( path: string, options = {} ) => {
+    return this.request(this.url + path, {...options, method: Methods.Get}, options.timeout);
   };
 
-  post: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: Methods.Post}, options.timeout);
+  post: THTTPMethod = ( path: string, options = {} ) => {
+    return this.request(this.url + path, {...options, method: Methods.Post}, options.timeout);
   };
 
-  put: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: Methods.Put}, options.timeout);
+  put: THTTPMethod = ( path: string, options = {} ) => {
+    return this.request(this.url + path, {...options, method: Methods.Put}, options.timeout);
   };
 
-  delete: THTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: Methods.Delete}, options.timeout);
+  delete: THTTPMethod = ( path: string, options = {} ) => {
+    return this.request(this.url + path, {...options, method: Methods.Delete}, options.timeout);
   };
 
   request = (url: string, options: TOptions = {}, timeout = 5000) => {
@@ -68,9 +66,15 @@ class HTTPTransport {
                   url,
       );
 
+      xhr.withCredentials = true;
+      
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
+
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
 
       xhr.onload = function() {
         resolve(xhr);
@@ -85,7 +89,7 @@ class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   };

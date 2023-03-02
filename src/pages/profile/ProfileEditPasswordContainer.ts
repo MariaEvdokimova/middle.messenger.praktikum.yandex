@@ -1,71 +1,92 @@
 import {Button} from '../../components/button/Button';
 import {Form} from '../../components/form/Form';
 import {Input} from '../../components/input/Input';
+import { Link } from '../../components/link/Link';
 import { Classes } from '../../css/classes';
-import {ProfileEditPassword} from './ProfileEditPassword';
+import { router } from '../../services/Router';
+import { ProfileEditPasswordPage } from './ProfileEditPassword';
+import nerrow from '../../../static/img/nerrow.svg';
+import { userController } from '../../controllers/UserController';
 
-const inputsDataProfileEditPass = [
-  {
-    name: 'Password_old',
-    lable: 'Старый пароль',
+const linkNerrow = new Link({
+  img: nerrow,
+  classImg: 'profile__nerrow-img',
+  events: {
+    click: () => {
+        router.back();
+    }
+  }
+});
+
+const inputs: Array<Input> = [];
+
+const inputOldPassword = new Input({
+  name: 'oldPassword',
+  type: 'password',
+  classInput: 'info__item-value profile__form-input',
+  classLable: 'info__item-name profile__form-label',
+  lable: 'Старый пароль',
+  attr: {
+    class: 'profile__form-item',
   },
-  {
-    name: 'password',
-    lable: 'Новый пароль',
+});
+
+const inputNewPassword = new Input({
+  name: 'newPassword',
+  type: 'password',
+  classInput: 'info__item-value profile__form-input',
+  classLable: 'info__item-name profile__form-label',
+  lable: 'Новый пароль',
+  attr: {
+    class: 'profile__form-item',
   },
-  {
-    name: 'password_conf',
-    lable: 'Повторите новый пароль',
+});
+
+const inputPasswordConf = new Input({
+  name: 'newPassword',
+  type: 'password',
+  classInput: 'info__item-value profile__form-input',
+  classLable: 'info__item-name profile__form-label',
+  lable: 'Повторите новый пароль',
+  attr: {
+    class: 'profile__form-item',
   },
-];
+});
+inputs.push(inputOldPassword,inputNewPassword,inputPasswordConf);
 
-export const profileEditPassword = () => {
-  const inputsProfileEditPassword: Array<Input> = [];
+const profileSavePassButton = new Button({
+  value: 'Save',
+  classImg: 'visually-hidden',
+  attr: {
+    type: 'submit',
+  },
+});
 
-  inputsDataProfileEditPass.forEach(( value: Record<string, string> ) => {
-    const inputItem = new Input({
-      name: value.name,
-      type: 'password',
-      classInput: 'info__item-value profile__form-input',
-      classLable: 'info__item-name profile__form-label',
-      lable: value.lable,
-      attr: {
-        class: 'profile__form-item',
-      },
-    });
-    inputsProfileEditPassword.push(inputItem);
-  });
+const formProfileEditPassword = new Form({
+  inputs: inputs,
+  formButton: profileSavePassButton,
+  buttonClass: 'profile__button',
+  attr: {
+    class: 'profile__form',
+  },
+  events: {
+    submit: (event) => {
+      event.preventDefault();
+      const isValid = formProfileEditPassword.validation(formProfileEditPassword);
+      const isPasswordEqual = formProfileEditPassword.isPasswordEqual(formProfileEditPassword, inputNewPassword, inputPasswordConf);
 
-  const profileSavePassButton = new Button({
-    value: 'Save',
-    classImg: 'visually-hidden',
-    attr: {
-      type: 'submit',
+      if ( isValid && isPasswordEqual ) {
+        const data = formProfileEditPassword.getObjLog(formProfileEditPassword);
+        userController.changePassword( data );          
+      }
     },
-  });
+  },
+});
 
-  const formProfileEditPassword = new Form({
-    inputs: inputsProfileEditPassword,
-    formButton: profileSavePassButton,
-    buttonClass: 'profile__button',
-    attr: {
-      class: 'profile__form',
-    },
-    events: {
-      submit: (event) => {
-        event.preventDefault();
-        console.log(formProfileEditPassword.getObjLog(formProfileEditPassword));
-        formProfileEditPassword.validation(formProfileEditPassword);
-      },
-    },
-  });
-
-  const profileEditPassword = new ProfileEditPassword({
-    formProfileEditPassword,
-    attr: {
-      class: Classes.ClassWrapper,
-    },
-  });
-
-  return profileEditPassword;
-};
+export  const profileEditPassword = new ProfileEditPasswordPage({
+  linkNerrow,
+  formProfileEditPassword,
+  attr: {
+    class: Classes.ClassWrapper,
+  },
+});
