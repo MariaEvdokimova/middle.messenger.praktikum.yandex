@@ -29,9 +29,6 @@ const config = {
         }),
 
         new MiniCssExtractPlugin(),
-
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
     module: {
         rules: [
@@ -53,13 +50,10 @@ const config = {
                 loader: "handlebars-loader",
                 exclude: ['/node_modules/'],
             }
-
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+        extensions: ['.tsx', '.ts', '.jsx', '.js'],
         alias: { 
             handlebars: 'handlebars/dist/handlebars.js',
             components: path.resolve(__dirname, 'src/components'),
