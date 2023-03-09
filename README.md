@@ -2,6 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8e3cfa15-c747-4b26-a08e-e7621becdc07/deploy-status)](https://app.netlify.com/sites/rococo-pony-ffd524/deploys)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://messenger-praktikum-yandex-j2lu.onrender.com/)
+
 установка зависимостей:
 
 ### `npm install` 
