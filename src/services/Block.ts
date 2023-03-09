@@ -1,5 +1,5 @@
 import {EventBus} from './EventBus';
-import {nanoid} from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 
 class Block<Props extends object> {
   static EVENTS = {
@@ -10,8 +10,8 @@ class Block<Props extends object> {
   };
 
   _setUpdate = false;
-  public id = nanoid(6);
-  protected props: Props;
+  public id = uuidv4();
+  public props: Props;
   protected children: Record<string, Block<Props>> = {};
   private eventBus: () => EventBus;
   protected _element: HTMLElement | null = null;
@@ -132,7 +132,7 @@ class Block<Props extends object> {
     this.eventBus().emit( Block.EVENTS.FLOW_RENDER );
   }
 
-  protected componentDidUpdate( oldProps: Props, newProps: Props ) {
+  protected componentDidUpdate( _oldProps: Props, _newProps: Props ) {
     return true;
   }
 
