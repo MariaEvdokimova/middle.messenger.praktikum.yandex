@@ -32,6 +32,6 @@ correction of Stylelint errors available for auto-correction:
 
 ### `npm run stylelint:fix`
 
-[site на Netlify ](https://rococo-pony-ffd524.netlify.app/)
+[ Netlify ](https://rococo-pony-ffd524.netlify.app/)
  
 [ Figma ](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1&t=r3MYV1qHfwynltXN-0)
