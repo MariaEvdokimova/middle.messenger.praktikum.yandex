@@ -4,31 +4,31 @@
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://messenger-praktikum-yandex-j2lu.onrender.com/)
 
-установка зависимостей:
+installing dependencies:
 
 ### `npm install` 
 
-запуск тестов:
+running tests:
 
 ### `npm run test` 
 
-запуск проекта в режиме разработки:
+launching a project in development mode:
 
 ### `npm run dev` 
 
-запуск сборки проекта:
+launching a project build:
 
 ### `npm run build` 
 
-запуск проекта на сервере:
+launching a project on server:
 
 ### `npm run start` 
 
-запуск Stylelint для вывода в консоль списка ошибок:
+launching Stylelint to display a list of errors in the console:
 
 ### `npm run stylelint`
 
-исправление ошибок Stylelint, доступных для автоисправления:
+correction of Stylelint errors available for auto-correction:
 
 ### `npm run stylelint:fix`
 
